@@ -12,18 +12,19 @@ if(empty($_POST == false)){
 		$message2 = "Sorry, this e-mail is already in use";
 		echo "<script type='text/javascript'>alert('$message2');</script>";
 	}
-	
 }
-
 ?>
+
+
 <?php include_once 'head.php'; ?>
+
   <div class="container-fluid" style ='background-color: #262626; width:80%; margin-top: 30px;opacity:0.8'>
 	<div class="page-header">
 		<h1><font color=white>REGISTRATION FORM</font></h1>
 	</div>	
 	<div class="panel panel-default">
 		<div class="panel-body">
-			<form class="form-horizontal" role="form" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+			<form class="form-horizontal" role="form" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" >
 				<div class="row">
 					<div class="col-sm-8">
 				
@@ -31,27 +32,73 @@ if(empty($_POST == false)){
 							<div class="panel-heading">Personal Details</div>
 							<div class="panel-body">
 								<div class="form-group">
-									<label class="control-label col-sm-3" for="title">Title</label>
+									<label class="control-label col-sm-3" for="title">Title *</label>
 									<div class="col-sm-7">
+										
+										<script>
+											function validateTitleCombo(){
+												if(document.getElementByName("title").value=="Default"){
+													alert("Select a valid title");
+													document.getElementById("titleCombo").focus();
+													return false;
+												}else{
+													return true;
+												}
+											}
+										</script>
+										
 										<div class="dropdown">
-											  <select class="form-control" id="sel1">
-												<option>Mr.</option>
-												<option>Mrs.</option>
-												<option>Ms.</option>
+											  <select class="form-control btn btn-primary col-sm-11" name="title">
+												<option value="Default">Please select the title</option>
+												<option value="Mr">Mr.</option>
+												<option value="Mrs">Mrs.</option>
+												<option value="Ms">Ms.</option>
 											  </select>
 											</div>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="control-label col-sm-3" for="firstName">First Name</label>
+									<label class="control-label col-sm-3" for="firstName">First Name *</label>
 									<div class="col-sm-7"> 
-										<input type="text" class="form-control" id="firstName">
+									
+									<script>
+										function validateFirstName() {
+											var name = document.getElementById("firstName").value;
+											var letters = /^[a-zA-Z\s]*$/;
+											if( name.match(letters)){
+												return true;
+											}else{
+												alert("Invalid data");
+												document.getElementById("firstName").value=document.getElementById("firstName").value.slice(0,-1);
+												name.focus();
+												return false;
+											}
+										}
+										</script>
+										
+										<input type="text" class="form-control" id="firstName" onkeyup="validateFirstName()" required>
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="control-label col-sm-3" for="lastName">Last Name</label>
+									<label class="control-label col-sm-3" for="lastName">Last Name *</label>
 									<div class="col-sm-7"> 
-										<input type="text" class="form-control" id="lastName">
+									
+										<script>
+											function validateLastName() {
+												var name = document.getElementById("lastName").value;
+												var letters = /^[A-Za-z\s]*$/;
+												if( name.match(letters)){
+													return true;
+												}else{
+													alert("Invalid data");
+													document.getElementById("lastName").value=document.getElementById("lastName").value.slice(0,-1);
+													name.focus();
+													return false;
+												}
+											}
+										</script>
+										
+										<input type="text" class="form-control" id="lastName" onkeyup="validateLastName()" required>
 									</div>
 								</div>
 								<div class="form-group">
@@ -67,10 +114,24 @@ if(empty($_POST == false)){
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="control-label col-sm-3" for="country">Country</label>
+									<label class="control-label col-sm-3" for="country"> Country *</label>
 									<div class="col-sm-7">
+										
+										<script>
+											function validateCountryCombo(){
+												if(document.getElementByName("country").value=="Default"){
+													alert("Select a valid country");
+													document.getElementById("countryCombo").focus();
+													return false;
+												}else{
+													return true;
+												}
+											}
+										</script>
+										
 										<div class="dropdown">
-											<select class="form-control btn btn-primary cl-sm-11" id="sel1">
+											<select class="form-control btn btn-primary col-sm-11" name="country">
+												<option value="Default">Please select a country</option>  
 												<option value="AF">Afghanistan</option>
 												<option value="AX">Åland Islands</option>
 												<option value="AL">Albania</option>
@@ -337,9 +398,25 @@ if(empty($_POST == false)){
 									</div>
 								</div>
 								<div class="form-group">
-									<label class="control-label col-sm-3" for="email">Email</label>
-									<div class="col-sm-7"> 
-										<input type="email" class="form-control" id="email" name="email">
+									<label class="control-label col-sm-3" for="email">Email *</label>
+									<div class="col-sm-7">
+										
+										<script>
+											function validateEmail() {
+												var email = document.getElementById("email").value;
+												var letters = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+												if( email.match(letters)){
+													return true;
+												}else{
+													alert("Invalid data");
+													document.getElementById("email").value=document.getElementById("email").value="";
+													email.focus();
+													return false;
+												}
+											}
+										</script>
+										 
+										<input type="email" class="form-control" id="email" name="email" onchange="validateEmail();" required>
 									</div>
 								</div>
 								<div class="form-group">
@@ -360,38 +437,41 @@ if(empty($_POST == false)){
 							<div class="panel-heading">Account Details</div>
 							<div class="panel-body">
 								<div class="form-group">
-								<label class="control-label col-sm-3" for="username">User Name</label>
+								<label class="control-label col-sm-3" for="username">User Name *</label>
 								<div class="col-sm-7"> 
 									<input type="text" class="form-control" id="username" name="username" required>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-3" for="password">Password</label>
+								<label class="control-label col-sm-3" for="password">Password *</label>
 								<div class="col-sm-7"> 
 									<input type="password" class="form-control" name="tpwd" id="password" onchange="validatePassword();" required>
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-3" for="confirm-password">Confirm Password</label>
+								<label class="control-label col-sm-3" for="confirm-password">Confirm Password *</label>
 								<div class="col-sm-7"> 
 									<input type="password" class="form-control" name="tcpwd" id="confirm_password" onkeyup="validatePassword();" required>
 								</div>
 							</div>
-							<button type="submit" class="btn btn-primary pull-right btn-margin-right" >Submit</button>
+							<button type="submit" class="btn btn-primary pull-right btn-margin-right" >Submit</button onclick="validateTitleCombo();">
 							<button type="reset" class="btn btn-primary pull-right btn-margin-right">Cancel</button>
+							
 							<script type="text/javascript">
-							username.setCustomValidity("")
-							var password = document.getElementById("password")
-							  , confirm_password = document.getElementById("confirm_password");
+								username.setCustomValidity("")
+								var password = document.getElementById("password")
+								  , confirm_password = document.getElementById("confirm_password");
 
-							function validatePassword(){
-							  if(password.value != confirm_password.value) {
-								confirm_password.setCustomValidity("Passwords Don't Match");
-							  } else {
-								confirm_password.setCustomValidity('');
-							  }
-							}
+								function validatePassword(){
+								  if(password.value != confirm_password.value) {
+									confirm_password.setCustomValidity("Passwords Don't Match");
+								  } else {
+									confirm_password.setCustomValidity('');
+								  }
+								}
 							</script>
+							
+							
 						</div>
 					</div>
 					</div>
