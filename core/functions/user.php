@@ -3,6 +3,43 @@
 		return (isset($_SESSION['user_id'])) ? true : false ;
 	}
 
+	function add_new_tourist($registration_data, $user_data){
+		require '\..\database\connect.php';
+		
+		extract($registration_data);
+		
+		
+		echo "$Title,$First_Name,$Last_Name,$NIC,$Passport_ID,$Address,$City,$Country,$Contact1,$Contact2";
+		
+		$id= '00003';	
+		$sql= "INSERT INTO tourist (Tourist_ID,Title,First_Name,Last_Name,NIC,Passport_ID,Address,City,Country,Contact1,Contact2) VALUES ('$id','$Title','$First_Name','$Last_Name','$NIC','$Passport_ID','$Address','$City','$Country','$Contact1','$Contact2')";
+		//$sql= "INSERT INTO tourist (Tourist_ID,Title,First_Name,Last_Name,NIC,Passport_Id,Address,City,Country,Contact1,Contact2) VALUES ('00006','Mr','Dineth','Weerathunga','935290559V',NULL,NULL,'Galle','Sri Lanka','0912223135','0772894515')";
+		$query= mysqli_query($con,$sql);
+		
+		if ($query === TRUE) {
+			echo $sql;
+			
+			echo "Registration to torist table Successfull";
+			//$sql = "INSERT INTO login (ID,username,e_mail,password) VALUES ('00006','chulaniweera','ddbw41@gmail.com',password('12345678'))";
+			extract($user_data);
+			echo "$username,$email,$password";
+			
+			$sql = "INSERT INTO login (ID,username,e_mail,password) VALUES ('$id','$username','$email',password('$password'))";
+			$query= mysqli_query($con, $sql);
+			echo $sql;
+			
+			if($query ===TRUE){
+				echo "Successfully added to the user table";
+			}else{
+				echo "Process failed";
+			}
+		} else {
+			echo "Error: " . $sql . "<br>" . $con->error;
+		}
+	
+	} 
+
+
 	function user_data($user_id){
 		require '\..\database\connect.php';
 		/*$data = array();
