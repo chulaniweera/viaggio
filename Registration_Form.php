@@ -17,6 +17,7 @@ if(empty($_POST == false)){
 
 
 <?php include_once 'head.php'; ?>
+<?php include_once 'Tourist.php'; ?>
 
   <div class="container-fluid" style ='background-color: #262626; width:80%; margin-top: 30px;opacity:0.8'>
 	<div class="page-header">
@@ -454,7 +455,7 @@ if(empty($_POST == false)){
 									<input type="password" class="form-control" name="tcpwd" id="confirm_password" onkeyup="validatePassword();" required>
 								</div>
 							</div>
-							<button type="submit" class="btn btn-primary pull-right btn-margin-right" >Submit</button onclick="validateTitleCombo();">
+							<button type="submit" class="btn btn-primary pull-right btn-margin-right" onclick="add_new_tourist();">Submit</button>
 							<button type="reset" class="btn btn-primary pull-right btn-margin-right">Cancel</button>
 							
 							<script type="text/javascript">
