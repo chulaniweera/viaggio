@@ -1,6 +1,9 @@
 <?php
+//include 'core/init.php';
 
 function add_new_tourist(){
+	require '\..\database\connect.php';
+	
 	$title= $_POST['title'];
 	$first_name= $_POST['firstName'];
 	$last_name= $_POST['lastName'];
@@ -10,8 +13,8 @@ function add_new_tourist(){
 	$nic= $_POST['nic'];
 	$passport_id= $_POST['passportId'];
 	$email= $_POST['email'];
-	$contactNo1= $_POST['contactNo1'];
-	$contactNo2= $_POST['contactNo2'];
+	$contact1= $_POST['contactNo1'];
+	$contact2= $_POST['contactNo2'];
 	$userName= $_POST['userName'];
 	$password= $_POST['password'];
 	
@@ -19,44 +22,51 @@ function add_new_tourist(){
 		echo "Enter valid details";
 	}
 	
-	$query= "INSERT INTO tourist (title,firstName,lastName,address,city,country,nic,passportId,email,contactNo1,contactNo2) VALUES ('$title',$first_Name,$last_Name,$address,$city,$country,$nic,$passport_Id,$email,$contactNo1,$contactNo2)";
+	//$sql= "INSERT INTO tourist (Tourist_ID,Title,First_Name,Last_Name,NIC,Passport_Id,Address,City,Country,Contact1,Contact2) VALUES ('001','$title',$first_Name,$last_Name,$nic,$passport_Id,$address,$city,$country,$contact1,$contact2)";
+	$sql= "INSERT INTO tourist (Tourist_ID,Title,First_Name,Last_Name,NIC,Passport_Id,Address,City,Country,Contact1,Contact2) VALUES ('00006','Mr','Dineth','Weerathunga','935290559V',NULL,NULL,'Galle','Sri Lanka','0912223135','0772894515')";
+	$query= mysql_query($sql);
 	
-	$data=mysql_query($query) or die(mysql_error);
-	
-	if($data){
-		echo "Registration to torist table Successfull";
-		$query = "INSERT INTO user (name,email.password) VALUES ('$userName',$email, $password)";
+	if ($query === TRUE) {
 		
-		$data = mysql_query($query) or die (mysql_error);
-		if ($data){
+		echo "Registration to torist table Successfull";
+		$sql = "INSERT INTO login (ID,username,e_mail,password) VALUES ('00006','chulaniweera','ddbw41@gmail.com',password('12345678'))";
+		
+		//$sql = "INSERT INTO login (ID,username,e_mail,password) VALUES ('00006','$userName','$email',password('password'))";
+		
+		if($query ===TRUE){
 			echo "Successfully added to the user table";
 		}else{
 			echo "Process failed";
 		}
-		
-	}else{
-		echo "Invalid User";
+	} else {
+		echo "Error: " . $sql . "<br>" . $con->error;
 	}
 	
 }
 
-function check_user_validity(){
+/*function check_user_validity(){
+	echo "Test";
+	include '\..\database\connect.php';
+	
 	$email= $_POST['email'];
 	$userName= $_POST['userName'];
 	$password= $_POST['password'];
 	
-	if(! empty ($email and $userName and $password){
-		$query = "SELECT * FROM user WHERE email= '$email' & password= $password" or die (mysql_error);
+	if(! empty ($email and $userName and $password)){
+		//$sql = "SELECT * FROM user WHERE email= '$email' & password= '$password'";
+		$sql = "SELECT * FROM user WHERE email= 'ddbw41@gmail.com' & password= '12345678'";
 		
-		$row = mysql_fetch_array($query) or die(mysql_error);
+		$query = mysql_query($sql);
+		$result= mysql_num_rows($query);
 		
-		if(! $row){
-			add_new_tourist();
-		}else{
+		if($result===1){
 			echo "Already registered";
+		}else{
+			add_new_tourist();
+			
 		}
 	}
-}
+}*/
 
 
 ?>
