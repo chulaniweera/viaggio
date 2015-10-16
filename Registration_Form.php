@@ -13,11 +13,34 @@ if(empty($_POST == false)){
 		echo "<script type='text/javascript'>alert('$message2');</script>";
 	}
 }
+
+if(empty($_POST == false)){
+	
+	$registration_data =  array(
+				"Title" => $_POST['title'],
+				"First_Name" => $_POST['firstName'] ,
+				"Last_Name" => $_POST['lastName'] ,
+				"NIC" => $_POST['nic'] ,
+				"Passport_ID" => $_POST['passportID'] ,
+				"Address" => $_POST['address'] ,
+				"City" => $_POST['city'] ,
+				"Country" => $_POST['country'] ,
+				"Contact1" => $_POST['contactNo1'] ,
+				"Contact2" => $_POST['contactNo2'] );
+	
+	$user_data = array(
+				"username" => $_POST['username'], 
+				"email" => $_POST['email'] ,
+				"password" => $_POST['tpwd'] );
+				
+	add_new_tourist($registration_data, $user_data);
+	
+}
+
 ?>
 
 
 <?php include_once 'head.php'; ?>
-<?php include_once 'Tourist.php'; ?>
 
   <div class="container-fluid" style ='background-color: #262626; width:80%; margin-top: 30px;opacity:0.8'>
 	<div class="page-header">
@@ -77,7 +100,7 @@ if(empty($_POST == false)){
 										}
 										</script>
 										
-										<input type="text" class="form-control" id="firstName" onkeyup="validateFirstName()" required>
+										<input type="text" class="form-control" id="firstName" name="firstName" onkeyup="validateFirstName()" required>
 									</div>
 								</div>
 								<div class="form-group">
@@ -99,19 +122,19 @@ if(empty($_POST == false)){
 											}
 										</script>
 										
-										<input type="text" class="form-control" id="lastName" onkeyup="validateLastName()" required>
+										<input type="text" class="form-control" id="lastName" name="lastName" onkeyup="validateLastName()" required>
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="control-label col-sm-3" for="address">Address</label>
 									<div class="col-sm-7"> 
-										<input type="text" class="form-control" id="address">
+										<input type="text" class="form-control" id="address" name="address">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="control-label col-sm-3" for="city">City</label>
 									<div class="col-sm-7"> 
-										<input type="text" class="form-control" id="city">
+										<input type="text" class="form-control" id="city" name="city">
 									</div>
 								</div>
 								<div class="form-group">
@@ -389,13 +412,13 @@ if(empty($_POST == false)){
 								<div class="form-group">
 									<label class="control-label col-sm-3" for="nic">NIC</label>
 									<div class="col-sm-7"> 
-										<input type="text" class="form-control" id="nic">
+										<input type="text" class="form-control" id="nic" name="nic">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="control-label col-sm-3" for="passportId">Passport ID</label>
 									<div class="col-sm-7"> 
-										<input type="text" class="form-control" id="passportID">
+										<input type="text" class="form-control" id="passportID" name="passportID">
 									</div>
 								</div>
 								<div class="form-group">
@@ -423,13 +446,13 @@ if(empty($_POST == false)){
 								<div class="form-group">
 									<label class="control-label col-sm-3" for="contactNo">Contact Number</label>
 									<div class="col-sm-7"> 
-										<input type="tel" class="form-control" id="contactNo1">
+										<input type="tel" class="form-control" id="contactNo1" name="contactNo1">
 									</div>
 								</div>
 								<div class="form-group">
 									<label class="control-label col-sm-3" for="contactNo"></label>
 									<div class="col-sm-7"> 
-										<input type="tel" class="form-control" id="contactNo2">
+										<input type="tel" class="form-control" id="contactNo2" name="contactNo2">
 									</div>
 								</div>
 							</div>
@@ -455,7 +478,7 @@ if(empty($_POST == false)){
 									<input type="password" class="form-control" name="tcpwd" id="confirm_password" onkeyup="validatePassword();" required>
 								</div>
 							</div>
-							<button type="submit" class="btn btn-primary pull-right btn-margin-right" onclick="add_new_tourist();">Submit</button>
+							<button type="submit" class="btn btn-primary pull-right btn-margin-right">Submit</button>
 							<button type="reset" class="btn btn-primary pull-right btn-margin-right">Cancel</button>
 							
 							<script type="text/javascript">
